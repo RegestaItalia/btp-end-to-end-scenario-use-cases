@@ -1,5 +1,5 @@
 _schema-version: "3.1"
-ID: author-readings-{YOUR_ID}
+ID: author-readings-REG
 description: SAP Demo Application
 version: 1.0.0
 
@@ -9,13 +9,13 @@ version: 1.0.0
 modules:
 
 # Service module
-- name: author-readings-srv-{YOUR_ID}
+- name: author-readings-srv-REG
   type: nodejs
   path: gen/srv
   requires:
-  - name: author-readings-db-{YOUR_ID}
-  - name: author-readings-uaa-{YOUR_ID}
-  - name: author-readings-destination-service-{YOUR_ID}
+  - name: author-readings-db-REG
+  - name: author-readings-uaa-REG
+  - name: author-readings-destination-service-REG
   provides:
   - name: srv-api
     properties:
@@ -26,23 +26,23 @@ modules:
     disk-quota: 512MB
 
 # DB deployer module
-- name: author-readings-db-deployer-{YOUR_ID}
+- name: author-readings-db-deployer-REG
   type: hdb
   path: gen/db
   requires:
-  - name: author-readings-db-{YOUR_ID}
-  - name: author-readings-uaa-{YOUR_ID}
+  - name: author-readings-db-REG
+  - name: author-readings-uaa-REG
   parameters:
     buildpack: nodejs_buildpack
     memory: 256MB
     disk-quota: 512MB    
 
 # App UI content deployer module (upload web app content into the HTML5 application repository)
-- name: author-readings-app-content-{YOUR_ID}
+- name: author-readings-app-content-REG
   type: com.sap.application.content
   path: .
   requires:
-  - name: author-readings-repo-host-{YOUR_ID}
+  - name: author-readings-repo-host-REG
     parameters:
       content-target: true
   build-parameters:
@@ -50,11 +50,11 @@ modules:
     requires:
     - artifacts:
       - authorreadingmanager.zip
-      name: authorreadingmanager-{YOUR_ID}
+      name: authorreadingmanager-REG
       target-path: resources/
 
 # App UI resources module
-- name: authorreadingmanager-{YOUR_ID}
+- name: authorreadingmanager-REG
   type: html5
   path: app/authorreadingmanager
   build-parameters:
@@ -66,33 +66,33 @@ modules:
     supported-platforms: []
 
 # Destination content module (define destinations with service keys)
-- name: author-readings-destination-content-{YOUR_ID}
+- name: author-readings-destination-content-REG
   type: com.sap.application.content
   requires:
-  - name: author-readings-destination-service-{YOUR_ID}
+  - name: author-readings-destination-service-REG
     parameters:
       content-target: true
-  - name: author-readings-repo-host-{YOUR_ID}
+  - name: author-readings-repo-host-REG
     parameters:
       service-key:
-        name: author-readings-repo-host-key-{YOUR_ID}
-  - name: author-readings-uaa-{YOUR_ID}
+        name: author-readings-repo-host-key-REG
+  - name: author-readings-uaa-REG
     parameters:
       service-key:
-        name: author-readings-uaa-key-{YOUR_ID}
+        name: author-readings-uaa-key-REG
   parameters:
     content:
       instance:
         destinations:
-        - Name: authorreadingmanager-repo-host-dest-{YOUR_ID}
-          ServiceInstanceName: author-readings-html5-srv-{YOUR_ID}
-          ServiceKeyName: author-readings-repo-host-key-{YOUR_ID}
-          sap.cloud.service: authorreadingmanager-{YOUR_ID}
+        - Name: authorreadingmanager-repo-host-dest-REG
+          ServiceInstanceName: author-readings-html5-srv-REG
+          ServiceKeyName: author-readings-repo-host-key-REG
+          sap.cloud.service: authorreadingmanager-REG
         - Authentication: OAuth2UserTokenExchange
-          Name: authorreadingmanager-uaa-fiori-dest-{YOUR_ID}
-          ServiceInstanceName: author-readings-uaa-{YOUR_ID}
-          ServiceKeyName: author-readings-uaa-key-{YOUR_ID}
-          sap.cloud.service: authorreadingmanager-{YOUR_ID}
+          Name: authorreadingmanager-uaa-fiori-dest-REG
+          ServiceInstanceName: author-readings-uaa-REG
+          ServiceKeyName: author-readings-uaa-key-REG
+          sap.cloud.service: authorreadingmanager-REG
         existing_destinations_policy: ignore
   build-parameters:
     no-source: true
@@ -103,7 +103,7 @@ modules:
 resources:
 
 # Database
-- name: author-readings-db-{YOUR_ID}
+- name: author-readings-db-REG
   type: com.sap.xs.hdi-container
   parameters:
     service: hana
@@ -112,15 +112,15 @@ resources:
     hdi-service-name: ${service-name}
 
 # HTML5 app repository
-- name: author-readings-repo-host-{YOUR_ID}
+- name: author-readings-repo-host-REG
   type: org.cloudfoundry.managed-service
   parameters:
     service: html5-apps-repo
-    service-name: author-readings-html5-srv-{YOUR_ID}
+    service-name: author-readings-html5-srv-REG
     service-plan: app-host
 
 # Destination service
-- name: author-readings-destination-service-{YOUR_ID}
+- name: author-readings-destination-service-REG
   type: org.cloudfoundry.managed-service
   parameters:
     config:
@@ -143,21 +143,21 @@ resources:
           existing_destinations_policy: update
       version: 1.0.0
     service: destination
-    service-name: author-readings-destination-service-{YOUR_ID}
+    service-name: author-readings-destination-service-REG
     service-plan: lite
   requires:
   - name: srv-api
 
 # UAA service
-- name: author-readings-uaa-{YOUR_ID}
+- name: author-readings-uaa-REG
   type: org.cloudfoundry.managed-service
   parameters:
     config:
       tenant-mode: dedicated
-      xsappname: author-readings-{YOUR_ID}-${space}
+      xsappname: author-readings-REG-${space}
     path: ./xs-security.json
     service: xsuaa
-    service-name: author-readings-uaa-{YOUR_ID}
+    service-name: author-readings-uaa-REG
     service-plan: application
 
 # -------------------------------------------------------------------------

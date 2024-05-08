@@ -1,7 +1,7 @@
 {
     "_version": "1.32.0",
     "sap.app": {
-        "id": "authorreadingmanager-{YOUR_ID}",
+        "id": "authorreadingmanager-REG",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -79,7 +79,7 @@
                 "type": "sap.ui.model.resource.ResourceModel",
                 "uri": "i18n/i18n.properties",
                 "settings": {
-                    "bundleName": "authorreadingmanager-{YOUR_ID}.i18n.i18n"
+                    "bundleName": "authorreadingmanager-REG.i18n.i18n"
                 }
             },
             "": {
@@ -180,6 +180,6 @@
     },
     "sap.cloud": {
         "public": true,
-        "service": "authorreadingmanager-{YOUR_ID}"
+        "service": "authorreadingmanager-REG"
     }
 }
